@@ -22,10 +22,11 @@ class RolePermissionSeeder extends Seeder
 
         $userSuperAdmin = User::create([
             'name' => 'Super Admin',
-            'avatar' => 'storage/avatars/avatar-default.jpg',
+            'username' => 'superadmin',
+            'avatar' => '/avatars/avatar-default.jpg',
             'occupation' => 'Web Developer',
             'connect' => 99999999,
-            'email' => 'super_admin@gmail.com',
+            'email' => 'superadmin@gmail.com',
             'password' => Hash::make('@Reffy1234'),
         ]);
 

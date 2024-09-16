@@ -2,14 +2,60 @@
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
         <x-logo />
         <div class="flex items-center lg:order-2">
-            <a href="#"
-                class="text-gray-800 hidden sm:block hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">
-                Log in
-            </a>
-            <a href="#"
-                class="text-white bg-primary hover:bg-hover focus:ring-4 focus:ring-dark_ring font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none duration-300 ease-in-out transition-all">
-                Get started
-            </a>
+
+            @if (!Auth::check())
+                <a href="{{ route('auth.signin') }}"
+                    class="text-gray-800 hidden sm:block hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">
+                    Log in
+                </a>
+                <a href="{{ route('auth.signup') }}"
+                    class="text-white bg-primary hover:bg-hover focus:ring-4 focus:ring-dark_ring font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none duration-300 ease-in-out transition-all">
+                    Get started
+                </a>
+            @else
+                <button type="button"
+                    class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+                    data-dropdown-placement="bottom">
+                    <span class="sr-only">Open user menu</span>
+                    <img class="object-cover w-8 h-8 rounded-full" src="{{ Storage::url(Auth::user()->avatar) }}"
+                        alt="user photo">
+                </button>
+                <!-- Dropdown menu -->
+                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+                    id="user-dropdown">
+                    <div class="px-4 py-3">
+                        <span class="block text-sm text-gray-900">{{ Str::limit(Auth::user()->name, 30) }}</span>
+                        <span class="block text-sm text-gray-500 truncate">
+                            {{ Str::limit(Auth::user()->email, 30) }}
+                        </span>
+                    </div>
+                    <ul class="py-2" aria-labelledby="user-menu-button">
+                        <li>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Home</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                        </li>
+                        <li>
+                            <form action="{{ route('auth.logout') }}" method="POST">
+                                @csrf
+                                <button
+                                    class="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100">
+                                    Sign out
+                                </button>
+                            </form>
+
+                        </li>
+                    </ul>
+                </div>
+            @endif
+
             <button data-collapse-toggle="mobile-menu-2" type="button"
                 class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                 aria-controls="mobile-menu-2" aria-expanded="false">
