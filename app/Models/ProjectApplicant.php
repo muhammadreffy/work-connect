@@ -11,4 +11,14 @@ class ProjectApplicant extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function freelancer()
+    {
+        return $this->belongsTo(User::class, 'freelancer_id');
+    }
 }

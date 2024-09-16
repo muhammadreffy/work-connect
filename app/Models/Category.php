@@ -12,4 +12,8 @@ class Category extends Model
 
     protected $guarded = ['id'];
 
+    public function projects()
+    {
+        return $this->hasMany(Category::class);
+    }
 }
