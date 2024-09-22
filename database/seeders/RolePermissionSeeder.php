@@ -23,7 +23,7 @@ class RolePermissionSeeder extends Seeder
         $userSuperAdmin = User::create([
             'name' => 'Super Admin',
             'username' => 'superadmin',
-            'avatar' => '/avatars/avatar-default.jpg',
+            'avatar' => 'avatars/avatar-default.png',
             'occupation' => 'Web Developer',
             'connect' => 99999999,
             'email' => 'superadmin@gmail.com',
