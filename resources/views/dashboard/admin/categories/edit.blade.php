@@ -28,8 +28,6 @@
 
                         <x-forms.input-file label="Icon" name="icon" value="{{ Storage::url($category->icon) }}"
                             description="Your profile picture should have a 1:1 ratio and be no larger than 2MB." />
-
-
                     </div>
 
                     <div class="col-span-12">

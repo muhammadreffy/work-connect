@@ -139,8 +139,14 @@ Route::middleware(DashboardAuth::class)->group(function () {
             Route::post('/project/store', [ProjectController::class, 'store'])
                 ->name('project.store');
 
+            Route::get('/project/{project:slug}/manage', [ProjectController::class, 'manage'])
+                ->name('project.manage');
+
             Route::get('/project/{project}/edit', [ProjectController::class, 'edit'])
                 ->name('project.edit');
+
+            Route::get('/project/{project:slug}/manage-tools', [ProjectController::class, 'manage_tools'])
+                ->name('project.manage-tools');
 
             Route::put('/project/{project}/update', [ProjectController::class, 'update'])
                 ->name('project.update');
@@ -155,26 +161,20 @@ Route::middleware(DashboardAuth::class)->group(function () {
             Route::get('/project/{project}/tools', [ProjectController::class, 'tools'])
                 ->name('projects.tools');
 
-            Route::post('/project/{project}/store', [ProjectController::class, 'tools_store'])
+            Route::post('/project/{project:slug}/tools-store', [ProjectController::class, 'tools_store'])
                 ->name('projects.tools-store');
 
             Route::get('/project-tools', [ProjectToolController::class, 'index'])
                 ->name('project-tools.index');
 
-            Route::get('/project-tool/create', [ProjectToolController::class, 'create'])
-                ->name('project-tool.create');
-
-            Route::post('/project-tool/store', [ProjectToolController::class, 'store'])
-                ->name('project-tool.store');
-
             Route::get('/project-tool/{projecttool}/edit', [ProjectToolController::class, 'edit'])
-                ->name('project-tool.edit');
+                ->name('project-tools.edit');
 
             Route::put('/project-tool/{projecttool}/update', [ProjectToolController::class, 'update'])
-                ->name('project-tool.update');
+                ->name('project-tools.update');
 
-            Route::delete('/project-tool/{projecttool}/delete', [ProjectToolController::class, 'destroy'])
-                ->name('project-tool.delete');
+            Route::delete('/project-tool/{projectTool}/delete/{tool}', [ProjectToolController::class, 'destroy'])
+                ->name('project-tools.delete');
         });
 
         Route::middleware('can:manage categories')->group(function () {
